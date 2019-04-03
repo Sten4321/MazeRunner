@@ -96,7 +96,6 @@ void AMazeRunnerCharacter::BeginPlay()
 	gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 	//Gets a input and calls OnFire?
 	InputComponent->BindAction("Fire", IE_Pressed, gun, &AGun::OnFire);
-	gun->AnimInstance = Mesh1P->GetAnimInstance();
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
 	{

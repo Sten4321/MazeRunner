@@ -62,7 +62,7 @@ void AGun::OnFire()
 void AGun::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	gun->AnimInstance = Mesh1P->GetAnimInstance();
 }
 
 // Called every frame
