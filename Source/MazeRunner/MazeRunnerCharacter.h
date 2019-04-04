@@ -1,10 +1,11 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
-
+#include "Gun.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MazeRunnerCharacter.generated.h"
+
 
 class UInputComponent;
 
@@ -18,12 +19,12 @@ class AMazeRunnerCharacter : public ACharacter
 	class USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USkeletalMeshComponent* FP_Gun;
+	/*UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	class USkeletalMeshComponent* FP_Gun;*/
 
 	/** Location on gun mesh where projectiles should spawn. */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USceneComponent* FP_MuzzleLocation;
+	/*UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	class USceneComponent* FP_MuzzleLocation;*/
 
 	/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
@@ -47,6 +48,10 @@ class AMazeRunnerCharacter : public ACharacter
 
 public:
 	AMazeRunnerCharacter();
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<class AGun>gunBlueprint;
+private:
+	AGun* gun;
 
 protected:
 	virtual void BeginPlay();
@@ -64,17 +69,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
 
-	/** Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class AMazeRunnerProjectile> ProjectileClass;
+	// Projectile class to spawn 
+	//UPROPERTY(EditDefaultsOnly, Category=Projectile)
+	//TSubclassOf<class AMazeRunnerProjectile> ProjectileClass;
 
-	/** Sound to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
-	class USoundBase* FireSound;
+	// Sound to play each time we fire 
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+	//class USoundBase* FireSound;
 
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
+	// AnimMontage to play each time we fire
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	//class UAnimMontage* FireAnimation;
 
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
@@ -83,7 +88,7 @@ public:
 protected:
 	
 	/** Fires a projectile. */
-	void OnFire();
+	//void OnFire();
 
 	/** Resets HMD orientation and position in VR. */
 	void OnResetVR();
