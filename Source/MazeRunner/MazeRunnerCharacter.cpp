@@ -93,9 +93,18 @@ void AMazeRunnerCharacter::BeginPlay()
 	gun = GetWorld()->SpawnActor<AGun>(gunBlueprint);
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	if (InputComponent == NULL)
+	{
 
-	//InputComponent->BindAction("Fire", IE_Pressed, gun, &AGun::OnFire);
-	
+		UE_LOG(LogTemp, Warning, TEXT("Something is wrong"));
+	}
+	else
+	{
+		//Sikre at vi altid kan skyde selv efter at dø
+		UE_LOG(LogTemp, Warning, TEXT("It works"));
+		InputComponent->BindAction("Fire", IE_Pressed, gun, &AGun::OnFire);
+	}
+
 	gun->AnimInstance = Mesh1P->GetAnimInstance();
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
@@ -124,6 +133,7 @@ void AMazeRunnerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
+	InputComponent->BindAction("Fire", IE_Pressed, gun, &AGun::OnFire);
 	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMazeRunnerCharacter::OnFire);
 
 	// Enable touchscreen input
@@ -301,6 +311,6 @@ bool AMazeRunnerCharacter::EnableTouchscreenMovement(class UInputComponent* Play
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AMazeRunnerCharacter::TouchUpdate);
 		return true;
 	}
-	
+
 	return false;
 }
