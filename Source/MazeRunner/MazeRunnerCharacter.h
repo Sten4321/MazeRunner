@@ -52,7 +52,6 @@ public:
 		TSubclassOf<class AGun>gunBlueprint;
 private:
 	AGun* gun;
-
 protected:
 	virtual void BeginPlay();
 

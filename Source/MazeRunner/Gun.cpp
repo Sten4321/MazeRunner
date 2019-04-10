@@ -21,6 +21,7 @@ AGun::AGun()
 	FP_MuzzleLocation = CreateAbstractDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	//Where to attatch the muzzle location
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
+	//Location of muzzle
 	FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
 
 }
@@ -29,9 +30,9 @@ void AGun::OnFire()
 {
 	if (ProjectileClass != NULL)
 	{
-		UWorld* const world = GetWorld();
+		UWorld* const World = GetWorld();
 
-		if (world != NULL)
+		if (World != NULL)
 		{
 			const FRotator SpawnRotation = FP_MuzzleLocation->GetComponentRotation();
 			//MuzzleOffset set from characters location
@@ -40,7 +41,7 @@ void AGun::OnFire()
 			FActorSpawnParameters ActorSpawnParams;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 			//Spawn the projectile at the muzzle depending on rotation, location and the params
-			world->SpawnActor<AMazeRunnerProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			World->SpawnActor<AMazeRunnerProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
 	}
 	if (FireSound != NULL) 
